@@ -1,0 +1,77 @@
+{
+    "reviews": [
+        {
+            "research paper title": "Text Summarization with Pretrained Encoders",
+            "author name": "Yang Liu and Mirella Lapata",
+            "journal name": "",
+            "year": "2019",
+            "summary": "they have proposed the text summerization technique using bert for abstractive as well as extractive . there datasets are used cnn/daily , new ork times and xsum dtatabases ,first two are extractive and third one is more abstractive . BERT is used for learning from lcontextual meaning of large corpora.For abstractive summerization s2s models are useful.summerization quality is evaluated using Rogue.also human evolution is done.Model performs well on datasets.Document encoing is used . text generation is in future scope . cost of creation incerases so functionality decereses.",
+            "remark": ""
+        },
+        {
+            "research paper title": "Developing Accessible Mobile Applications with Cross-PlatformDevelopment Frameworks",
+            "author name": "Sergio Mascetti, Mattia Ducci, Niccoló Cantù  ,Paolo Pecis and Dragan Ahmetovic",
+            "journal name": "",
+            "year": "2020",
+            "summary": "the app is created on cross platform for visual impaired people.Xamrin and react native is used to test.Some native api not accesible by cross platform frameworks . voice over screen reader sre created . interpreted and generated types of cpdf are used .cost of creation incerases so functionality decereses.Flutter shall be used next",
+            "remark": ""
+        }, 
+        {
+            "research paper title": "Characterization of Encrypted and VPN Traffic using Time-related Features",
+            "author name": "Gerard Draper-Gil, Arash Habibi Lashkari, Mohammad Saiful Islam Mamun and Ali A. Ghorbani",
+            "journal name": "",
+            "year": "2016",
+            "summary": "using vpn the traffic is encrypted and classified as needed and ml techique as c4.5 and knn used to determine the correctness.its a two fold paper in first part they propose aa wa to classify the raffic based on time-related feature.in second part overview ,data overview and experimentation.created data from real world user(friends) so VOIP, VPN-VOIP, P2P, VPN-P2P etc type of connection are generated.Two scenarios are created and ml tests are done on them.in scenario a used voip directly and under vpn.in other scenario full dataset being used.For testing knn as well as c4.5 tree is used as classification algorithms.80% acuracy is acheived. future work is being done on other parameters and as well as time",
+            "remark": ""
+        },
+        {
+            "research paper title": "Research and Implementation of WebRTC Signaling via WebSocket-based for Real-time Multimedia Communications ",
+            "author name": "Cui Jian1, a, Zhuying Lin2, b, * ",
+            "journal name": "",
+            "year": "2016",
+            "summary": "in paper author used webrtc technology to implement peer to peer coonnection and multimedia streaming using web sockets.multimedia data is encoded and transmitted over internet using web rtc.Peer to peer connection is easy when the devices are in same network and dont have any firewalls and nats.the working of webrtc is explained.Appplying this in many browers has to be desribed",
+            "remark": ""
+        },
+        {
+            "research paper title": "Quality of Experience Estimation for WebRTC-based Video Streaming",
+            "author name": "Yevgeniya Sulema2,4, Noam Amram1, Oleksii Aleshchenko2,4, Olena Sivak2,3",
+            "journal name": "",
+            "year": "2018",
+            "summary": "webrtc over mobile network for data communication.they have proposed a new architecture.the client side and server side is created.various media is situated on nodejs app.Kurento media server amd application server is used for backend.In Data layer , data is converted into appropriate format.Data is generated and tha data is evaluated using ml techniques.in future quality experience calcuated by quality service charcteristics",
+            "remark": ""
+        },
+        {
+            "research paper title": "Text Summarization with Pretrained Encoders",
+            "author name": "",
+            "journal name": "",
+            "year": "",
+            "summary": "",
+            "remark": ""
+        },
+        {
+            "research paper title": "Text Summarization with Pretrained Encoders",
+            "author name": "",
+            "journal name": "",
+            "year": "",
+            "summary": "",
+            "remark": ""
+        },
+        {
+            "research paper title": "Text Summarization with Pretrained Encoders",
+            "author name": "",
+            "journal name": "",
+            "year": "",
+            "summary": "",
+            "remark": ""
+        },
+        {
+            "research paper title": "Text Summarization with Pretrained Encoders",
+            "author name": "",
+            "journal name": "",
+            "year": "",
+            "summary": "",
+            "remark": ""
+        }
+
+    ]
+}
