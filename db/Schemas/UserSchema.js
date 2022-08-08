@@ -4,7 +4,7 @@ const ProjectSchema = require("./ProjectSchema")
 
 const userSchema = new mongoose.Schema({
     "userName": {type:String , unique : true },
-    "userid": {type : mongoose.Schema.Types.ObjectId } ,
+    "userId": String,
     "profilepic": {
         type:String,
         default:""
@@ -17,8 +17,8 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:""
     },
-    "projects" : [{type : mongoose.Schema.Types.ObjectId ,ref:ProjectSchema}],
-    "Teams" : [{type : mongoose.Schema.Types.ObjectId ,ref:TeamSchema}]
+    "projects" : [{type : String ,ref:ProjectSchema}],
+    "Teams" : [{type : String ,ref:TeamSchema}]
     //"_id":mongoose.isObjectIdOrHexString
     //"teams": [...teamsDetailShort]
 })

@@ -52,7 +52,7 @@ const tasklist = new mongoose.Schema(
 const ProjectSchema = new mongoose.Schema(
     {
         "userId": {
-            type:mongoose.Schema.Types.ObjectId,
+            type:String,
             default:""
         },
         "teamId": {

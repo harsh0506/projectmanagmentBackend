@@ -13,7 +13,7 @@ async function getallData(req, res, SchemaName, name) {
 async function getById(req, res, SchemaName, name) {
     try {
         if (name === "userModel") {
-            res.json(await SchemaName.findById(req.params.id).populate("Teams", "projects"));
+            res.json(await SchemaName.find({userId:req.params.id}).populate("Teams", "projects"));
         }
         else if (name === "TeamSchema") {
             const m = await SchemaName.findById(req.params.id)
