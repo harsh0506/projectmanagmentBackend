@@ -2,13 +2,14 @@ const express = require('express');
 const app = express()
 require("dotenv").config()
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 4000;
 const routes = require("./routes/routes")
 const mongoose = require("mongoose") // new
 const teams = require("./routes/TeamsAPi");
 const projects = require("./routes/ProjectApi")
 const cors = require("cors")
 app.use(cors());
+app.set("port" , port)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

@@ -13,10 +13,11 @@ async function getallData(req, res, SchemaName, name) {
 async function getById(req, res, SchemaName, name) {
     try {
         if (name === "userModel") {
-            res.json(await SchemaName.find({userId:req.params.id}).populate("Teams", "projects"));
+            res.json(await SchemaName.find({ "userId": req.params.id }).populate("Teams", "projects"));
         }
         else if (name === "TeamSchema") {
-            const m = await SchemaName.findById(req.params.id)
+
+            const m = await SchemaName.find({"teamAdminId":req.params.id})
             let tm = [];
             let pl = [];
             for (let i = 0; i < m.teamMembers.length; i++) {
@@ -27,18 +28,24 @@ async function getById(req, res, SchemaName, name) {
             }
 
             m == null ? res.send("no data found") : res.json({ teamdata: m, teamMember: tm, Projects: pl })
+
         }
-        res.json(await SchemaName.findById(req.params.id))
+        else{
+            res.json(await SchemaName.findOne({projectId:req.params.id}))
+        }
     } catch (err) {
         console.log("error is ", err);
         res.json({ msg: error }).status(500)
     }
 }
 
-async function postData(req,res,SchemaName){
+async function postData(req, res, SchemaName) {
     try {
         const data = new SchemaName(req.body)
         const response = await data.save()
+        if (SchemaName === "ProjectSchema") {
+            res.json(await userSchema.findAndUpdate(req.params.id, { $push: req.body }, { new: true }))
+        }
         res.json(response).status(200)
     } catch (error) {
         console.log("error is ", error);
@@ -46,7 +53,7 @@ async function postData(req,res,SchemaName){
     }
 }
 
-async function put(req,res,SchemaName){
+async function put(req, res, SchemaName) {
     try {
         const id = req.params.id
         const newData = req.body
@@ -59,11 +66,11 @@ async function put(req,res,SchemaName){
     }
 }
 
-async function addData(req,res,SchemaName){
-    res.json(await SchemaName.findByIdAndUpdate(req.params.id, { $push: req.body }, { new: true }))
+async function addData(req, res, SchemaName) {
+    res.json(await SchemaName.findOneAndUpdate({"npm":req.params.id}, { $push: req.body }, { new: true }))
 }
 
-async function del(req,res,SchemaName){
+async function del(req, res, SchemaName) {
     try {
         const id = req.params.id;
         await SchemaName.findByIdAndDelete(id)

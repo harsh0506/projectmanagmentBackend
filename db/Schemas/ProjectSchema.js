@@ -14,12 +14,12 @@ const documnet = new mongoose.Schema({
         type:String,
         default:""
     },
-    "Adder_id": {
-        type:Number,
+    "adderId": {
+        type:String,
         default:""
     },
     "date": {
-        type:Date,
+        type:String,
         default:""
     }
 })
@@ -45,6 +45,14 @@ const tasklist = new mongoose.Schema(
         "progress":{
             type:String,
             default:"0%"
+        },
+        "dateOfCreation":{
+            type:String,
+            default:""
+        },
+        "taskId":{
+            type:String,
+            default:''
         }
     }
 )
@@ -82,8 +90,8 @@ const ProjectSchema = new mongoose.Schema(
         },
         "TaskList": [tasklist],
         "calendar":{
-            type:Array,
-            default:[]
+            type:Object,
+            default:{}
         },
         "activity":{
             type:Object,

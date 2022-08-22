@@ -21,6 +21,9 @@ router.get("/", (req, res) => myfunc.getallData(req, res, ProjectSchema))
 */
 
 router.get("/:id", async (req, res) => myfunc.getById(req, res, ProjectSchema, "ProjectSchema"))
+router.get("/ti/:id", async (req, res) => {
+   res.json(await ProjectSchema.find({teamAdminId : req.params.id}))
+})
 
 /* 
 1 ==> function / endpoint to get projets objects of multiple ids

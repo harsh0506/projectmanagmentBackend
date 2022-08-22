@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:""
     },
-    "projects" : [{type : String ,ref:ProjectSchema}],
+    "projects" : [{type : mongoose.Schema.Types.ObjectId }],
     "Teams" : [{type : String ,ref:TeamSchema}]
     //"_id":mongoose.isObjectIdOrHexString
     //"teams": [...teamsDetailShort]

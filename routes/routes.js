@@ -18,7 +18,7 @@ router.get("/", async (req, res) =>myfunc.getallData(req,res,userModel))
 1 ==> function / endpoint to get data of given id
 2 ==> function returns only one object
 3 ==> takes id
-4 ==> url for the function is "http://localhost:8000/user/<id>" example "http://localhost:8000/projects/62d3aa21f4bdddd0ea6504b9"
+4 ==> url for the function is "http://localhost:8000/user/<id>" example "http://localhost:8000/user/62d3aa21f4bdddd0ea6504b9"
 */
 router.get("/:id", async (req, res) => myfunc.getById(req,res,userModel , "userModel"))
 
@@ -31,7 +31,10 @@ router.get("/:id", async (req, res) => myfunc.getById(req,res,userModel , "userM
 
 router.get("/userName/:userName" , async(req,res)=>{
     try{
-        res.json(await userModel.find({userName:req.params.userName}))
+        if (req.params.userName === undefined || req.params.userName === null || req.params.userName === ""){
+            res.json({msg:"parameter issue please check"}).status(400)
+        }
+        res.json(await userModel.find({userEmail:req.params.userName}))
     }   catch (error) {
         console.log("error is ", error);
         res.json({ msg: error }).status(500)
