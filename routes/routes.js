@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router()
 const userModel = require("../db/Schemas/UserSchema")
-
+const ProjectSchema = require("../db/Schemas/ProjectSchema")
 const myfunc = require("../controllers/Controller")
 
 
@@ -21,6 +21,12 @@ router.get("/", async (req, res) =>myfunc.getallData(req,res,userModel))
 4 ==> url for the function is "http://localhost:8000/user/<id>" example "http://localhost:8000/user/62d3aa21f4bdddd0ea6504b9"
 */
 router.get("/:id", async (req, res) => myfunc.getById(req,res,userModel , "userModel"))
+
+router.get("/hhdd/:id",async(req,res)=>{
+    console.log(req.query.teamAdminId)
+    const projData = await ProjectSchema.find({teamAdminId : req.query.teamAdminId})
+    res.json({user:await userModel.findById(req.params.id),proj:projData})
+})
 
 /* 
 1 ==> function / endpoint to get data of given username

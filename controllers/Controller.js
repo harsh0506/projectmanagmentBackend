@@ -54,7 +54,7 @@ async function postData(req, res, SchemaName) {
 }
 
 async function put(req, res, SchemaName) {
-    try {
+    try { 
         const id = req.params.id
         const newData = req.body
         const opt = { new: true }
@@ -67,7 +67,7 @@ async function put(req, res, SchemaName) {
 }
 
 async function addData(req, res, SchemaName) {
-    res.json(await SchemaName.findOneAndUpdate({"npm":req.params.id}, { $push: req.body }, { new: true }))
+    res.json(await SchemaName.findOneAndUpdate({"projectId":req.params.id}, { $push: req.body }, { new: true }))
 }
 
 async function del(req, res, SchemaName) {

@@ -21,8 +21,13 @@ router.get("/", (req, res) => myfunc.getallData(req, res, ProjectSchema))
 */
 
 router.get("/:id", async (req, res) => myfunc.getById(req, res, ProjectSchema, "ProjectSchema"))
+
 router.get("/ti/:id", async (req, res) => {
-   res.json(await ProjectSchema.find({teamAdminId : req.params.id}))
+    res.json(await ProjectSchema.find({ teamAdminId: req.params.id }))
+})
+
+router.get("/projectId/:id",async (req, res) => {
+    res.json(await ProjectSchema.find({ _id: req.params.id }))
 })
 
 /* 
@@ -46,6 +51,27 @@ router.get("/multipleProj", async (req, res) => {
     }
 })
 
+router.put("/projDelete/:id", async (req, res) => {
+    try {
+        const key = req.body.Parentkey 
+        const info = await ProjectSchema.updateOne({},
+            { $pull: { "TaskList" : { '_id': req.params.id } } },
+            { multi: true })
+        console.log("yup did it")
+        res.send("id removed is " + info + req.params.id);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+router.delete("/projDelete/:id", async (req, res) => {
+    try {
+        await ProjectSchema.findByIdAndRemove(req.params.id);
+        console.log("yup did it")
+    } catch (err) {
+        console.log(err)
+    }
+})
 /* 
 1 ==> function / endpoint to create the project
 2 ==> creates the object and stores it in db with given data
@@ -53,7 +79,7 @@ router.get("/multipleProj", async (req, res) => {
 4 ==> url for the function is post call "http://localhost:8000/projects"
 */
 
-router.post("/", (req, res) => myfunc.postData(req,res,ProjectSchema))
+router.post("/", (req, res) => myfunc.postData(req, res, ProjectSchema))
 
 /*
 1 ==> function/endpoint to update the data 
@@ -63,7 +89,7 @@ router.post("/", (req, res) => myfunc.postData(req,res,ProjectSchema))
 example data ==> { "projectName" : "proj1"}
 */
 
-router.put("/:id", (req, res) => myfunc.put(req,res,ProjectSchema))
+router.put("/:id", (req, res) => myfunc.put(req, res, ProjectSchema))
 
 /* 
 1 ==> function / endpoint which specifically adds data in array of object
@@ -73,7 +99,7 @@ router.put("/:id", (req, res) => myfunc.put(req,res,ProjectSchema))
 example data ==> { <key as per the schema>: <keys as per schema>} i.e {"TaskList" : {"taskName" : "task2"}}
 */
 
-router.put("/arrAdd/:id",  (req, res) => myfunc.addData(req,res,ProjectSchema))
+router.put("/arrAdd/:id", (req, res) => myfunc.addData(req, res, ProjectSchema))
 
 /*
 1 ==> function / endpoints which specifically updates the values of objects in array of object 
@@ -87,8 +113,10 @@ tip ==> id in this function/enpoint call should be of task not the whole project
 router.put("/arrayUpdate/:id", async (req, res) => {
     try {
         const a = String(req.body.Parentkey) + ".$." + String(req.body.key_to_change)
+        const parentkey = String(req.body.Parentkey + "._id");
+        console.log(parentkey)
         res.json(await ProjectSchema.findOneAndUpdate({
-            "TaskList._id": req.params.id
+            [parentkey]: req.params.id
         }, { $set: { [a]: req.body.value } }, { new: true }))
     } catch (err) {
         console.log("error is ", err);
@@ -100,6 +128,6 @@ router.put("/arrayUpdate/:id", async (req, res) => {
 1 ==> function / enpoints which deletes the project
 */
 
-router.delete("/:id", (req,res)=>myfunc.del(req,res,userModel))
+router.delete("/:id", (req, res) => myfunc.del(req, res, userModel))
 
 module.exports = router
