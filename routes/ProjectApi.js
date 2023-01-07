@@ -22,8 +22,10 @@ router.get("/", (req, res) => myfunc.getallData(req, res, ProjectSchema))
 
 router.get("/:id", async (req, res) => myfunc.getById(req, res, ProjectSchema, "ProjectSchema"))
 
-router.get("/ti/:id", async (req, res) => {
-    res.json(await ProjectSchema.find({ teamAdminId: req.params.id }))
+router.get("/SingleProject/:id", async (req, res) => {
+    try{
+        res.json(await ProjectSchema.find({ "_id": req.params.id }))
+    }catch (err) {console.log(err)}
 })
 
 router.get("/projectId/:id",async (req, res) => {
@@ -51,11 +53,26 @@ router.get("/multipleProj", async (req, res) => {
     }
 })
 
+//for deleting task from taskList
 router.put("/projDelete/:id", async (req, res) => {
     try {
         const key = req.body.Parentkey 
-        const info = await ProjectSchema.updateOne({},
-            { $pull: { "TaskList" : { '_id': req.params.id } } },
+        const info = await ProjectSchema.updateOne({"_id":req.params.id},
+            { $pull: { "TaskList" : { '_id': key } } },
+            { multi: true })
+        console.log("yup did it")
+        res.send("id removed is " + info + req.params.id);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+//for deleteing document form document list
+router.put("/proj_delte_doc/:id",async(req,res)=>{
+    try {
+        const key = req.body.Parentkey 
+        const info = await ProjectSchema.updateOne({"_id":req.params.id},
+            { $pull: { "Documents" : { '_id': key } } },
             { multi: true })
         console.log("yup did it")
         res.send("id removed is " + info + req.params.id);
@@ -101,6 +118,10 @@ example data ==> { <key as per the schema>: <keys as per schema>} i.e {"TaskList
 
 router.put("/arrAdd/:id", (req, res) => myfunc.addData(req, res, ProjectSchema))
 
+router.put("/_idProj/:id",async(req,res)=>{
+    res.json(await ProjectSchema.findOneAndUpdate({"_id":req.params.id}, { $push: req.body }, { new: true }))
+})
+
 /*
 1 ==> function / endpoints which specifically updates the values of objects in array of object 
 2 ==> returns updated json object
@@ -128,6 +149,6 @@ router.put("/arrayUpdate/:id", async (req, res) => {
 1 ==> function / enpoints which deletes the project
 */
 
-router.delete("/:id", (req, res) => myfunc.del(req, res, userModel))
+router.delete("/:id", (req, res) => myfunc.del(req, res, ProjectSchema))
 
 module.exports = router

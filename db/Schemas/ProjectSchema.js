@@ -3,56 +3,60 @@ const mongoose = require("mongoose")
 
 const documnet = new mongoose.Schema({
     "url": {
-        type:String,
-        default:""
+        type: String,
+        default: ""
     },
     "docName": {
-        type:String,
-        default:""
+        type: String,
+        default: ""
     },
     "tag": {
-        type:String,
-        default:""
+        type: String,
+        default: ""
     },
     "adderId": {
-        type:String,
-        default:""
+        type: String,
+        default: ""
     },
     "date": {
-        type:String,
-        default:""
+        type: String,
+        default: ""
     }
 })
 
 const tasklist = new mongoose.Schema(
     {
-        "taskName":  {
-            type:String,
-            default:""
+        "taskName": {
+            type: String,
+            default: ""
         },
-        "userId":  {
-            type:String,
-            default:""
+        "priority": {
+            typr: String,
+            default: ""
         },
-        "userName" : {
-            type:String,
-            default:""
+        "userId": {
+            type: String,
+            default: ""
+        },
+        "userName": {
+            type: String,
+            default: ""
         },
         "SubmissionDate": {
-            type:Date,
-            default:""
+            type: String,
+            default: ""
         },
-        "progress":{
-            type:String,
-            default:"0%"
+        "progress": {
+            type: String,
+            default: "0%"
         },
-        "dateOfCreation":{
-            type:String,
-            default:""
+        "dateOfCreation": {
+            type: String,
+            default: ""
         },
-        "taskId":{
-            type:String,
-            default:''
+        "taskId": {
+            type: String,
+            default: ''
         }
     }
 )
@@ -60,44 +64,48 @@ const tasklist = new mongoose.Schema(
 const ProjectSchema = new mongoose.Schema(
     {
         "userId": {
-            type:String,
-            default:""
+            type: String,
+            default: ""
         },
         "teamId": {
-            type:String,
-            default:""
+            type: String,
+            default: ""
         },
         "projectId": {
-            type:String,
-            default:""
+            type: String,
+            default: ""
+        },
+        "dateOfCreation": {
+            type: String,
+            default: ""
         },
         "teamAdminId": {
-            type:String,
-            default:""
+            type: String,
+            default: ""
         },
         "Documents": [documnet],
         "projectName": {
-            type:String,
-            default:""
+            type: String,
+            default: ""
         },
         "SubmissionDate": {
-            type:Date,
-            default:""
+            type: Date,
+            default: ""
         },
         "personal": {
-            type:Boolean,
-            default:true
+            type: Boolean,
+            default: true
         },
         "TaskList": [tasklist],
-        "calendar":{
-            type:Object,
-            default:{}
+        "calendar": {
+            type: Object,
+            default: {}
         },
-        "activity":{
-            type:Object,
-            default:{}
+        "activity": {
+            type: Object,
+            default: {}
         }
     }
 )
 
-module.exports = mongoose.model("ProjectSchema" , ProjectSchema , "ProjectSchema" )
+module.exports = mongoose.model("ProjectSchema", ProjectSchema, "ProjectSchema")
