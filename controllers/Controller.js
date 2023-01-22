@@ -47,7 +47,7 @@ async function postData(req, res, SchemaName) {
     try {
         const data = new SchemaName(req.body)
         const response = await data.save()
-        if (SchemaName === ProjectSchema) { await userSchema.findOneAndUpdate({ "_id": req.body.userId }, { "$push": { "projects": response._id } }, { new: true }) }
+        if (SchemaName === ProjectSchema) { await userSchema.findOneAndUpdate({ "_id": req.body.userId }, { "$push": { "projects":String( response._id) } }, { new: true }) }
         if (SchemaName === "TeamSchema") {
             try {
                 console.log(await userSchema.find({ "_id": response.teamAdminID }))

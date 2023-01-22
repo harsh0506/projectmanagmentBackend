@@ -1,5 +1,47 @@
 const mongoose = require("mongoose")
 
+const Calendar = {
+    "event_id": {
+        type: String,
+        default: ""
+    },
+    "title": {
+        type: String,
+        default: ""
+    },
+    "start": {
+        type: String,
+        default: new Date()
+    },
+    "end": {
+        type: String,
+        default: ""
+    },
+    "disabled": {
+        type: String,
+        default: ""
+    },
+    "color": {
+        type: String,
+        default: "Blue"
+    },
+    "editable": {
+        type: String,
+        default: "true"
+    },
+    "deletable": {
+        type: String,
+        default: "true"
+    },
+    "draggable": {
+        type: String,
+        default: "false"
+    },
+    "allDay": {
+        type: String,
+        default: "true"
+    },
+}
 
 const documnet = new mongoose.Schema({
     "url": {
@@ -71,6 +113,10 @@ const ProjectSchema = new mongoose.Schema(
             type: String,
             default: ""
         },
+        "priority": {
+            typr: String,
+            default: ""
+        },
         "projectId": {
             type: String,
             default: ""
@@ -89,7 +135,7 @@ const ProjectSchema = new mongoose.Schema(
             default: ""
         },
         "SubmissionDate": {
-            type: Date,
+            type: String,
             default: ""
         },
         "personal": {
@@ -97,10 +143,7 @@ const ProjectSchema = new mongoose.Schema(
             default: true
         },
         "TaskList": [tasklist],
-        "calendar": {
-            type: Object,
-            default: {}
-        },
+        "calendar": [Calendar],
         "activity": {
             type: Object,
             default: {}
