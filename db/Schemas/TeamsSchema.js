@@ -42,7 +42,7 @@ const TeamSchema =  mongoose.Schema({
     },
     "teamMembers": [{type:mongoose.Schema.Types.ObjectId , ref : userSchema }],
     "inviteCode": {
-        type:Number,
+        type:String,
         default:null
     },
     "projectList": [{type:String , ref : ProjectSchema }]

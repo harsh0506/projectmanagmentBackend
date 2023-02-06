@@ -25,11 +25,21 @@ async function getById(req, res, SchemaName, name) {
             const m = await SchemaName.find({ "teamid": req.params.id })
             let tm = [];
             let pl = [];
-            console.log(m[0])
 
-            for (let i = 0; i <= 1; i++) {
-                tm.push(await userSchema.find({ "_id": m[0].teamMembers[i] + '' }))
+            //set team Member of user
+            if (m[0].teamMembers.length === 0) {
+                tm = "no team members"
             }
+            else {
+                for (let i = 0; i < m[0].teamMembers.length; i++) {
+                    // tm.push(await userSchema.find({ "_id": m[0].teamMembers[i] + '' }))
+                    tm.push(await userSchema.findById(m[0].teamMembers[i]))
+                }
+            }
+
+            //set projects of the users
+            pl = await ProjectSchema.find({ "teamId": m[0]._id })
+
             m === null ? res.send("no data found") : res.json({ teamdata: m, teamMember: tm, Projects: pl })
 
         }
@@ -47,18 +57,18 @@ async function postData(req, res, SchemaName) {
     try {
         const data = new SchemaName(req.body)
         const response = await data.save()
-        if (SchemaName === ProjectSchema) { await userSchema.findOneAndUpdate({ "_id": req.body.userId }, { "$push": { "projects":String( response._id) } }, { new: true }) }
+        if (SchemaName === ProjectSchema) { await userSchema.findOneAndUpdate({ "_id": req.body.userId }, { "$push": { "projects": String(response._id) } }, { new: true }) }
         if (SchemaName === "TeamSchema") {
             try {
-                console.log(await userSchema.find({ "_id": response.teamAdminID }))
-                console.log(await userSchema.findOneAndUpdate(
+                //console.log(await userSchema.find({ "_id": response.teamAdminID }))
+                /*console.log(await userSchema.findOneAndUpdate(
                     //find the collection with id ,id mmust be equal to team admin id(the person's od who created the team)
                     { "_id": response.teamAdminID },
                     //if you find it then push the teams id in the user team array
                     { $push: { "Teams": response._id } },
                     //new flag
                     { new: true }
-                ))
+                ))*/
             } catch (err) { console.log(err) }
         }
         res.json(response).status(200)

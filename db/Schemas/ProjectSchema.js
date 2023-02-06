@@ -73,7 +73,7 @@ const tasklist = new mongoose.Schema(
             default: ""
         },
         "priority": {
-            typr: String,
+            type: String,
             default: ""
         },
         "userId": {
@@ -114,7 +114,7 @@ const ProjectSchema = new mongoose.Schema(
             default: ""
         },
         "priority": {
-            typr: String,
+            type: String,
             default: ""
         },
         "projectId": {
