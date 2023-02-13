@@ -81,6 +81,20 @@ router.put("/proj_delte_doc/:id",async(req,res)=>{
     }
 })
 
+//for deleteing Calendar from calendar list
+router.put("/proj_delte_Cal/:id",async(req,res)=>{
+    try {
+        const key = req.body.Parentkey 
+        const info = await ProjectSchema.updateOne({"_id":req.params.id},
+            { $pull: { "calendar" : { '_id': key } } },
+            { multi: true })
+        console.log("yup did it")
+        res.send("id removed is " + info + req.params.id);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 router.delete("/projDelete/:id", async (req, res) => {
     try {
         await ProjectSchema.findByIdAndRemove(req.params.id);
@@ -144,6 +158,46 @@ router.put("/arrayUpdate/:id", async (req, res) => {
         res.json({ msg: err }).status(500)
     }
 })
+
+router.put("/uAoO/:id",async(req,res)=>{
+    try {
+        const { id } = req.params;
+        const { key,  _id , value  } = req.body;
+        const a = ".$." + String(req.body.key)
+        const doc = await ProjectSchema.findOneAndUpdate({"_id":id,"calendar._id":_id},{ $set: { ["calendar" + a ]: value } },{new:true})
+        res.json(doc)
+    } catch (error) {
+        res.json({ msg: error }).status(500)
+    }
+})
+
+router.put("/arrayUpdateAll/:Pid", async(req,res)=>{
+    try {
+        const { Pid } = req.params;
+        const { Tid, data } = req.body;
+        const doc = await ProjectSchema.findOneAndUpdate(
+            {"_id":Pid,"TaskList._id":Tid},
+            { $set: data },
+            {new:true})
+        res.json(doc)
+    } catch (error) {
+        res.json({ msg: error }).status(500)
+    }
+} )
+
+/*
+dashboard api call
+dashboard must have -
+1) project name,
+2) Submission Date
+3) Priority with color
+4) Remaining Days to complete the Project
+5) OnGoing Events, and Calendar
+6) No of task completed,ongoging , (can be shown using a pie chart or donut chart)
+7) diffrence between date of submission and date of actual submission , and the graph to display that
+and predicting how much more dates are needed to compltete that
+8) Prediction of project submission date
+*/
 
 /* 
 1 ==> function / enpoints which deletes the project
