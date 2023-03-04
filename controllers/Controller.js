@@ -57,7 +57,7 @@ async function postData(req, res, SchemaName) {
     try {
         const data = new SchemaName(req.body)
         const response = await data.save()
-        if (SchemaName === ProjectSchema) { await userSchema.findOneAndUpdate({ "_id": req.body.userId }, { "$push": { "projects": String(response._id) } }, { new: true }) }
+        //if (SchemaName === ProjectSchema) { /*await userSchema.findOneAndUpdate({ "_id": req.body.userId }, { "$push": { "projects": String(response._id) } }, { new: true })*/ }
         if (SchemaName === "TeamSchema") {
             try {
                 //console.log(await userSchema.find({ "_id": response.teamAdminID }))
@@ -92,7 +92,13 @@ async function put(req, res, SchemaName) {
 }
 
 async function addData(req, res, SchemaName) {
-    res.json(await SchemaName.findOneAndUpdate({ "projectId": req.params.id }, { $push: req.body }, { new: true }))
+    try{
+        res.json(await SchemaName.findOneAndUpdate({ "projectId": req.params.id }, { $push: req.body }, { new: true }))
+
+    } catch (error) {
+        console.log("error is ", error);
+        res.json({ msg: error }).status(500)
+    }
 }
 
 async function del(req, res, SchemaName) {

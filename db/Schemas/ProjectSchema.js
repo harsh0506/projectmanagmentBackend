@@ -74,7 +74,7 @@ const tasklist = new mongoose.Schema(
         },
         "priority": {
             type: String,
-            default: ""
+            default: "medium"
         },
         "userId": {
             type: String,
@@ -92,6 +92,10 @@ const tasklist = new mongoose.Schema(
             type: String,
             default: "0%"
         },
+        'color': {
+            type: String,
+            default: "orange"
+        },
         "dateOfCreation": {
             type: String,
             default: ""
@@ -100,9 +104,12 @@ const tasklist = new mongoose.Schema(
             type: String,
             default: ''
         },
-        "dateOfActualSubmission":{
-            type:String,
-            default:""
+        "dateOfActualSubmission": {
+            type: String,
+            default: ""
+        }, "Status": {
+            type: String,
+            default: "assigned"
         }
     }
 )
@@ -151,7 +158,10 @@ const ProjectSchema = new mongoose.Schema(
         "activity": {
             type: Object,
             default: {}
-        }
+        },
+        "status": {
+            type: String,
+            default: "assigned"}
     }
 )
 

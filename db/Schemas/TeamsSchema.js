@@ -40,10 +40,24 @@ const TeamSchema =  mongoose.Schema({
         type:String,
         default:""
     },
-    "teamMembers": [{type:mongoose.Schema.Types.ObjectId , ref : userSchema }],
+    "dateOfCreation": {
+        type: String,
+        default: ""
+    },
+    "teamMembers": {
+        type:[String],
+        validate: {
+            validator: (arr) => arr.length <= 3,
+            message: () => 'TeamMembers array cannot have more than 3 elements'
+          }
+    },
     "inviteCode": {
         type:String,
         default:null
+    },
+    "status": {
+        type: String,
+        default: "assigned"
     },
     "projectList": [{type:String , ref : ProjectSchema }]
 })

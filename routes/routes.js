@@ -47,6 +47,14 @@ router.get("/userName/:userName" , async(req,res)=>{
     }  
 })
 
+router.get("/users",async(req,res)=>{
+    try {
+        console.log(req.body)
+    } catch (error) {
+        
+    }
+})
+
 /* 
 1 ==> function / endpoint to create the project
 2 ==> creates the object and stores it in db with given data

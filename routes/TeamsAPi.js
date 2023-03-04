@@ -67,7 +67,7 @@ router.put("/arrDel/:id", async (req, res) => {
 
     try {
         // res.json(await TeamSchema.findOneAndUpdate({ "teamid": req.params.id }, { $pop: req.body }, { new: true }))
-        
+
         const id = req.params.id
 
         await TeamSchema.updateOne({ "teamid": req.params.id },
@@ -80,6 +80,25 @@ router.put("/arrDel/:id", async (req, res) => {
     }
 
 })
+
+router.put("/teamMembers/:id", async (req, res) => {
+    try {
+        const value = req.body.teamMembers
+        const filter = { teamid: req.params.id, teamMembers: { $not: { $elemMatch: { $eq: value } } } };
+        const update = { $push: { teamMembers: value } };
+
+        const data = await TeamSchema.findOneAndUpdate(
+            filter,
+            update,
+            { new: true, runValidators: true }
+        )
+        
+        res.json(data)
+       
+        } catch (err) {  
+                res.json('Unknown error occurred:', err)
+        }
+    })
 
 router.put("/:id", (req, res) => myfunc.put(req, res, TeamSchema))
 
