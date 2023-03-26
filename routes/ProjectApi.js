@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router()
 
 const myfunc = require("../controllers/Controller")
@@ -31,7 +32,31 @@ router.get("/SingleProject/:id", async (req, res) => {
 })
 
 router.get("/projectId/:id", async (req, res) => {
-    res.json(await ProjectSchema.find({ _id: req.params.id }))
+    res.json(await ProjectSchema.find({ userId: req.params.id }))
+})
+
+router.get("/projects/:id", async (req, res) => {
+    try {
+        const data = await ProjectSchema.find({ teamAdminId: req.params.id })
+        let a = [], b = [];
+        for (let i = 0; i <= data.length - 1; i++) {
+            const { projectName, _id, projectId, SubmissionDate, priority, personal, teamId, teamAdminId, status } = data[i]
+            if (personal === true) {
+                a.push({ projectName, _id, projectId, SubmissionDate, priority, personal, teamId, teamAdminId, status })
+            }
+            if (personal === false) {
+                b.push({ projectName, _id, projectId, SubmissionDate, priority, personal, teamId, teamAdminId, status })
+            }
+        }
+
+        res.json({
+            personal: a.slice(0, 3),
+            team: b.slice(0, 3)
+        })
+
+    } catch (error) {
+        res.json(error)
+    }
 })
 
 router.get("/DashBoard/:id", async (req, res) => {
@@ -127,6 +152,32 @@ router.get("/DashBoard/:id", async (req, res) => {
     }
 })
 
+router.get("/calendar/:id", async (req, res) => {
+    try {
+        const data = await ProjectSchema.find({
+            "_id": req.params.id,
+        })
+        const { calendar } = data[0]
+        let PrevEvents = [] , upComingEvents = [] , OnGoingEvents =[] , TodaysEvent = []
+        calendar.forEach(element => {
+            if(new Date(element.end) > new Date() ) {
+                PrevEvents.push(element)
+            }
+            if(new date(element.start) > new Date()){
+                upComingEvents.push(element)
+            }
+            if(new date(element.start) < new Date() && new date(element.start) > new Date()){
+                OnGoingEvents.push(element)
+            }
+            
+
+        });
+        res.json(PrevEvents)
+    } catch (error) {
+        res.json(error)
+    }
+})
+
 router.get("/Tasks/:Pid", async (req, res) => {
     try {
         let color = "";
@@ -164,7 +215,7 @@ router.get("/Tasks/:Pid", async (req, res) => {
                 return acc;
             }, []);
 
-            res.json({ _id, projectId, priority, projectName, teamAdminId, teamId, TaskList, SubmissionDate, tm , personal })
+            res.json({ _id, projectId, priority, projectName, teamAdminId, teamId, TaskList, SubmissionDate, tm, personal })
         }
     } catch (error) {
         res.json(error.message)

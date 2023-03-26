@@ -28,7 +28,7 @@ async function getById(req, res, SchemaName, name) {
 
             //set team Member of user
             if (m[0].teamMembers.length === 0) {
-                tm = "no team members"
+                tm = []
             }
             else {
                 for (let i = 0; i < m[0].teamMembers.length; i++) {

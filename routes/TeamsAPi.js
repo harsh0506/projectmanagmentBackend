@@ -5,7 +5,8 @@ const myfunc = require("../controllers/Controller")
 
 const TeamSchema = require("../db/Schemas/TeamsSchema");
 const userSchema = require("../db/Schemas/UserSchema");
-const ProjectSchema = require("../db/Schemas/ProjectSchema")
+const ProjectSchema = require("../db/Schemas/ProjectSchema");
+
 
 
 router.get("/", (req, res) => myfunc.getallData(req, res, TeamSchema, "TeamSchema"))
@@ -28,6 +29,8 @@ router.get("/getTeamUsingUSerId/:id", async (req, res) => {
     try {
         //let data = await TeamSchema.find({ "teamMembers":mongoose.Types.ObjectId(req.params.id)})
         let id = mongoose.Types.ObjectId(req.params.id)
+        
+        console.log(await TeamSchema.find({ "teamMembers": req.params.id }))
         let data = await TeamSchema.find().or([{ "teamMembers": req.params.id }, { "teamAdminID": id }])
         res.json(data).status(200)
     } catch (error) {
