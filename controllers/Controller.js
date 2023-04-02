@@ -26,15 +26,18 @@ async function getById(req, res, SchemaName, name) {
             let tm = [];
             let pl = [];
 
+            console.log(m[0])
+
             //set team Member of user
             if (m[0].teamMembers.length === 0) {
-                tm = []
+                tm.push(await userSchema.find({"_id":m[0].teamAdminId}))
             }
             else {
                 for (let i = 0; i < m[0].teamMembers.length; i++) {
                     // tm.push(await userSchema.find({ "_id": m[0].teamMembers[i] + '' }))
                     tm.push(await userSchema.findById(m[0].teamMembers[i]))
                 }
+                tm.push(await userSchema.find({"_id":m[0].teamAdminID}))
             }
 
             //set projects of the users
